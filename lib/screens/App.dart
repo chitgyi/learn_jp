@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/components/styling.dart';
+import 'package:learn_jp/screens/GrammarList.dart';
 import 'package:learn_jp/screens/Voca.dart';
 
 class App extends StatelessWidget {
@@ -64,7 +65,10 @@ class App extends StatelessWidget {
                       child: Card(
                           elevation: 4,
                           child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (cxt) => GrammarList()));
+                              },
                               child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 30),
                                   child: Column(
