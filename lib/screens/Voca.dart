@@ -29,9 +29,9 @@ class _VocaState extends State<Voca> implements VocaView {
         onPressed: () {},
         child: Icon(Icons.search),
       ),
-      body: ListView.builder(
-        itemBuilder: (cxt, index) => ChapterItem(vocas[index]),
-        itemCount: vocas == null ? 0 : vocas.length,
+      body: vocas == null ? Center(child: CircularProgressIndicator()) : GridView.count(
+       crossAxisCount: 3,
+       children: vocas.map((f)=>ChapterItem(f)).toList(),
       ),
     );
   }

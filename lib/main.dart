@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_jp/screens/App.dart';
 import 'package:learn_jp/utils/DbHelper.dart';
 import 'package:learn_jp/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
     return StreamProvider<bool>.value(
       value: isNewUser(),
       child: MaterialApp(
-        routes: {"/app": (context) => App()},
         theme: ThemeData(
             primaryColor: Colors.red[700], accentColor: Colors.redAccent),
         home: Wrapper(),
