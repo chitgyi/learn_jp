@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/chapter.dart';
 import 'package:learn_jp/MVP/VocaMVP.dart';
+import 'package:learn_jp/Search/VocaSearch.dart';
 import 'package:learn_jp/components/chapter_item.dart';
 
-class Voca extends StatefulWidget {
-  const Voca({Key key}) : super(key: key);
+class Learn extends StatefulWidget {
+  const Learn({Key key}) : super(key: key);
 
   @override
-  _VocaState createState() => _VocaState();
+  _LearnState createState() => _LearnState();
 }
 
-class _VocaState extends State<Voca> implements VocaView {
+class _LearnState extends State<Learn> implements VocaView {
   List<Chapter> vocas;
 
   @override
@@ -23,16 +24,19 @@ class _VocaState extends State<Voca> implements VocaView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Voca"),
+        title: Text("Learn"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (cxt) => VocaSearch())),
         child: Icon(Icons.search),
       ),
-      body: vocas == null ? Center(child: CircularProgressIndicator()) : GridView.count(
-       crossAxisCount: 3,
-       children: vocas.map((f)=>ChapterItem(f)).toList(),
-      ),
+      body: vocas == null
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: vocas.length,
+              itemBuilder: (cxt, index) => ChapterItem(vocas[index]),
+            ),
     );
   }
 

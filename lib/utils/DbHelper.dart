@@ -121,6 +121,15 @@ class DbHelper {
         .rawQuery("SELECT * FROM $KOTOBA_TABLE WHERE $CHAPTER_ID = $id");
     return words.map((f) => Words.fromMap(f)).toList();
   }
-}
 
-class DbAccess {}
+  Future<List<Words>> search(String data) async {
+    try {
+      var dbClient = await db;
+      var words = await dbClient.rawQuery(
+          "select * from $KOTOBA_TABLE where ($ROMAJI || $MM ||$HIRAGANA) like '%${data.toString()}%' limit 25");
+      return words.map((f) => Words.fromMap(f)).toList();
+    } catch (e) {
+      return null;
+    }
+  }
+}

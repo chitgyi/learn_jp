@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/chapter.dart';
-import 'package:learn_jp/components/styling.dart';
+import 'package:learn_jp/screens/Grammar.dart';
 import 'package:learn_jp/screens/VocaDetails.dart';
 
 class ChapterItem extends StatelessWidget {
@@ -11,23 +11,55 @@ class ChapterItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (cxt)=>VocaDetails(chapter.id)));
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              Icons.book,
-              color: Colors.redAccent,
-            ),
-            Text(
-              "Chapter ${chapter.id + 1}",
-              style: title2TextSyle,
-            ),
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          ListBody(
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  "Chapter ${chapter.id + 1}",
+                ),
+                subtitle: Text(chapter.titile),
+              ),
+              ListTile(
+                title: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  children: <Widget>[
+                    FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Text(
+                        "Vocabularies",
+                        style: TextStyle(
+                            color: Colors.redAccent, fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (cxt) => VocaDetails(chapter.id))),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Text(
+                        "Grammars",
+                        style: TextStyle(
+                            color: Colors.redAccent, fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (cxt) => Grammar(chapter.id))),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.zero,
+                      child: Text(
+                        "Exercises",
+                        style: TextStyle(
+                            color: Colors.redAccent, fontWeight: FontWeight.w500),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

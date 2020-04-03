@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/components/styling.dart';
-import 'package:learn_jp/screens/GrammarList.dart';
-import 'package:learn_jp/screens/Voca.dart';
+import 'package:learn_jp/screens/Learn.dart';
 
 class App extends StatelessWidget {
   @override
@@ -13,96 +12,25 @@ class App extends StatelessWidget {
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                    Expanded(
-                      child: Card(
-                          elevation: 4,
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (cxt) => Voca()));
-                              },
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 30),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(Icons.chrome_reader_mode,
-                                          color: Colors.redAccent),
-                                      Text(
-                                        "Vocabulary",
-                                        style: titleTextSyle,
-                                      )
-                                    ],
-                                  )))),
-                    ),
-                    Expanded(
-                      child: Card(
-                          elevation: 4,
-                          child: InkWell(
-                              onTap: () {},
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 30),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(Icons.chrome_reader_mode,
-                                          color: Colors.redAccent),
-                                      Text(
-                                        "Listening",
-                                        style: titleTextSyle,
-                                      )
-                                    ],
-                                  )))),
-                    )
-                  ])),
-              Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                    Expanded(
-                      child: Card(
-                          elevation: 4,
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (cxt) => GrammarList()));
-                              },
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 30),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(Icons.chrome_reader_mode,
-                                          color: Colors.redAccent),
-                                      Text(
-                                        "Grammar",
-                                        style: titleTextSyle,
-                                      )
-                                    ],
-                                  )))),
-                    ),
-                    Expanded(
-                      child: Card(
-                          elevation: 4,
-                          child: InkWell(
-                              onTap: () {},
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 30),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.chrome_reader_mode,
-                                        color: Colors.redAccent,
-                                      ),
-                                      Text(
-                                        "Exercises",
-                                        style: titleTextSyle,
-                                      )
-                                    ],
-                                  )))),
-                    )
-                  ])),
+              Card(
+                  elevation: 4,
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (cxt) => Learn()));
+                      },
+                      child: Container(
+                          padding: EdgeInsets.all(30),
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.chrome_reader_mode,
+                                  color: Colors.redAccent),
+                              Text(
+                                "Learn",
+                                style: titleTextSyle,
+                              )
+                            ],
+                          )))),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(

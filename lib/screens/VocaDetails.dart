@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/words.dart';
 import 'package:learn_jp/MVP/LessonMVP.dart';
-import 'package:learn_jp/components/styling.dart';
+import 'package:learn_jp/components/voca_deatail_item.dart';
 
 class VocaDetails extends StatefulWidget {
   final int id;
@@ -34,7 +34,7 @@ class _VocaDetailsState extends State<VocaDetails> implements LessonView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chapter ${widget.id + 1}"),
+        title: Text("Vocabulary"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -43,18 +43,7 @@ class _VocaDetailsState extends State<VocaDetails> implements LessonView {
       body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 3),
         itemCount: word == null ? 0 : word.length,
-        itemBuilder: (cxt, index) {
-          return Card(
-            elevation: 2,
-            child: ListTile(
-              title: Text(
-                "${index + 1}.${word[index].hiragana}",
-              ),
-              subtitle: Text(
-                  "${word[index].romaji}\n${word[index].kanji}\n${word[index].myanmar}"),
-            ),
-          );
-        },
+        itemBuilder: (cxt, index) => VocaDetailItem(word[index], index),
       ),
     );
   }
