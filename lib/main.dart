@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent));
+      SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
   runApp(MyApp());
 }
 
@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
     return StreamProvider<bool>.value(
       value: isNewUser(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: Colors.red[700], accentColor: Colors.redAccent),
+            primaryColor: Color.fromRGBO(245, 41, 40, 1),
+            accentColor: Colors.redAccent),
         home: Wrapper(),
       ),
     );

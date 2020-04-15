@@ -4,5 +4,5 @@ class Chapter{
 
   Chapter({this.id, this.titile});
 
-  Chapter.fromMap(Map<String, dynamic> map):titile=map['title'],id=map['id'];
+  Chapter.fromMap(Map<String, dynamic> map):titile=map['title'],id=map['chId'];
 }

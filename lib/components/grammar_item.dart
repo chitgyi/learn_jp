@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/grammar.dart';
+import 'package:learn_jp/utils/DbHelper.dart';
+import 'package:learn_jp/utils/Insert.dart';
 
 class GrammarItem extends StatefulWidget {
   final GrammarDAO grammarDAO;
@@ -11,19 +13,24 @@ class GrammarItem extends StatefulWidget {
 
 class _GrammarItemState extends State<GrammarItem> {
   bool isFav = false;
+  final db = DbHelper.access();
 
   @override
   void initState() {
     super.initState();
+    
     setState(() {
-      isFav = widget.grammarDAO.grammarFav.isFav;
+      isFav = widget.grammarDAO.grammarForm.isFav != 0;
     });
   }
 
-  setFav() {
+  setFav() async {
     setState(() {
       isFav = !isFav;
     });
+    await Insert()
+        .updateFav(isFav: isFav, id: widget.grammarDAO.grammarForm.id);
+    //  grammarList.forEach((f) => db.insertGrammar(f));
   }
 
   @override

@@ -14,6 +14,9 @@ dependencies:
   cupertino_icons: ^0.1.2
   shared_preferences: ^0.5.6+3
   provider: ^4.0.4
+  flutter_icons: ^1.0.0+1
+  flutter_svg: ^0.17.3+1
+  carousel_slider: ^1.4.1
 
 dev_dependencies:
   flutter_test:
@@ -24,7 +27,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/data.json
-   - assets/db/kotoba.db
+   - assets/db/jp.db
+   - assets/png/menu.png
+   - assets/listening.png
+   - assets/onbarad1.png
+   - assets/onbarad2.png
+   - assets/png/appbar2.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

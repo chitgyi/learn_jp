@@ -63,4 +63,10 @@ class _VocaSearchState extends State<VocaSearch> implements VocaSearchView {
           itemBuilder: (cxt, index) => VocaDetailItem(words[index], index));
     }
   }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 }

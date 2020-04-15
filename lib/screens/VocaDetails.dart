@@ -33,8 +33,20 @@ class _VocaDetailsState extends State<VocaDetails> implements LessonView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
-        title: Text("Vocabulary"),
+        titleSpacing: 0,
+        title: ListTile(
+          title: Text(
+            "Vocabulary",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            "Chapter ${widget.id + 1}",
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
+          contentPadding: EdgeInsets.zero,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

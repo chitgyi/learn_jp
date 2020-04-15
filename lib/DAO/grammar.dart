@@ -1,22 +1,31 @@
 import 'package:flutter/foundation.dart';
 
 class GrammarForm {
+  final int id;
+  final int chapterId;
   final String title;
   final String hiragana;
   final String romaji;
   final String myanmar;
+  final int isFav;
 
   GrammarForm(
       {@required this.myanmar,
+      @required this.id,
+      @required this.isFav,
+      @required this.chapterId,
       @required this.romaji,
       @required this.hiragana,
       @required this.title});
 
   GrammarForm.fromMap(Map<String, dynamic> data)
       : title = data['title'],
+        id = data['formId'],
+        isFav = data['isFav'],
+        chapterId = data['chId'],
         hiragana = data['hiragana'],
         romaji = data['romaji'],
-        myanmar = data['myanmar'];
+        myanmar = data['mm'];
 }
 
 class GrammarEg {
@@ -31,35 +40,26 @@ class GrammarEg {
   });
 
   GrammarEg.fromMap(Map<String, dynamic> data)
-      : hiragana = data['hiragana'],
-        romaji = data['romaji'],
-        myanmar = data['myanmar'];
+      : hiragana = data['hiraganaEg'],
+        romaji = data['romajiEg'],
+        myanmar = data['mmEg'];
 }
 
 class GrammarDAO {
   final GrammarForm grammarForm;
-  final GrammarFav grammarFav;
   final List<GrammarEg> grammarEg;
-  GrammarDAO(
-      {@required this.grammarFav,
-      @required this.grammarForm,
-      @required this.grammarEg});
-}
-
-class GrammarFav {
-  final int id;
-  final bool isFav;
-
-  GrammarFav({@required this.id, @required this.isFav});
-  GrammarFav.fromMap(Map<String, dynamic> data)
-      : id = data['id'] as int,
-        isFav = data['isFav'] as bool;
+  GrammarDAO({@required this.grammarForm, @required this.grammarEg});
+  GrammarDAO.fromMap(Map<String, dynamic> data)
+      : grammarEg = data['grammarEg'],
+        grammarForm = data['grammarForm'];
 }
 
 final grammarList = <GrammarDAO>[
   GrammarDAO(
-      grammarFav: GrammarFav(id: 1, isFav: false),
       grammarForm: GrammarForm(
+          id: 0,
+          chapterId: 0,
+          isFav: 0,
           title: "~ ဖြစ်ပါသည်",
           hiragana: "--- は --- です",
           romaji: "---wa --- desu",
@@ -70,13 +70,15 @@ final grammarList = <GrammarDAO>[
             romaji: "watashi wa mira- desu.",
             myanmar: "ကျွန်တော်က နီလာဖြစ်ပါတယ်။"),
         GrammarEg(
-            hiragana: "わたし は ミラー です。",
-            romaji: "watashi wa mira- desu.",
-            myanmar: "ကျွန်တော်က နီလာဖြစ်ပါတယ်။"),
+            hiragana: "ミラー です。",
+            romaji: "mira- desu.",
+            myanmar: "နီလာဖြစ်ပါတယ်။"),
       ]),
   GrammarDAO(
-      grammarFav: GrammarFav(id: 2, isFav: true),
       grammarForm: GrammarForm(
+          id: 5,
+          chapterId: 1,
+          isFav: 0,
           title: "~ မဟုတ်ပါဘူး။",
           hiragana: "--- は --- じゃ（では） ありません",
           romaji: "---wa ---jya(dewa) arimasen ",
@@ -87,13 +89,15 @@ final grammarList = <GrammarDAO>[
             romaji: "watashi wa gakusei jya arimasen ",
             myanmar: "ကျွန်တော် ကျောင်းသားမဟုတ်ပါဘူး။"),
         GrammarEg(
-            hiragana: "わたし は がくせい じゃありません。",
-            romaji: "watashi wa gakusei jya arimasen ",
-            myanmar: "ကျွန်တော် ကျောင်းသားမဟုတ်ပါဘူး။"),
+            hiragana: "がくせい じゃありません。",
+            romaji: "gakusei jya arimasen ",
+            myanmar: "ကျောင်းသားမဟုတ်ပါဘူး။"),
       ]),
   GrammarDAO(
-      grammarFav: GrammarFav(id: 3, isFav: true),
       grammarForm: GrammarForm(
+          id: 2,
+          chapterId: 2,
+          isFav: 0,
           title: "~ ဖြစ်ပါသလား?",
           hiragana: "---は ---ですか",
           romaji: "---wa ---desuka ",
@@ -103,6 +107,10 @@ final grammarList = <GrammarDAO>[
             hiragana: "ミラーさん は かいしゃいん ですか？ ",
             romaji: "mira-san wa kaisha in desuka",
             myanmar: "မီလာစံက ကုမ္ပဏီ၀န်ထမ်း ဖြစ်ပါသလား?"),
+        GrammarEg(
+            hiragana: "ミラーさん は かいしゃいん ですか？ ",
+            romaji: "mira-san wa kaisha in desuka",
+            myanmar: "မီလာစံက ကုမ္ပဏီ၀န်ထမ်း ဖြစ်ပါသလား?")
       ]),
 ];
 

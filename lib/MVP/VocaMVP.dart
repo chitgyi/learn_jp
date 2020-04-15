@@ -1,12 +1,12 @@
 import 'package:learn_jp/DAO/chapter.dart';
-import 'package:learn_jp/utils/DbHelper.dart';
+import 'package:learn_jp/utils/Query.dart';
 
 class VocaPresenter {
   final VocaView vocaView;
   VocaPresenter(this.vocaView);
 
   void getChapters() {
-    DbHelper.access()
+    Query()
         .getChapters()
         .then((c) => vocaView.chapters(c))
         .catchError((err) => vocaView.error(err.toString()));

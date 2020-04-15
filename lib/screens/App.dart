@@ -1,92 +1,162 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_jp/components/styling.dart';
+import 'package:learn_jp/components/learn_item.dart';
+import 'package:learn_jp/components/news.dart';
+import 'package:learn_jp/screens/Kanji.dart';
 import 'package:learn_jp/screens/Learn.dart';
+import 'package:learn_jp/screens/Listening.dart';
 
 class App extends StatelessWidget {
+  final learns = [
+    {
+      "src": "assets/onbarad1.png",
+      "route": Learn(),
+      "title": "Vocabulary, Grammar and Exercise"
+    },
+    {"src": "assets/onbarad2.png", "route": Kanji(), "title": "Kanji"},
+    {"src": "assets/listening.png", "route": Listening(), "title": "Listening"}
+  ];
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-          title: Text("LEARN-JP"),
-        ),
-        body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Card(
-                  elevation: 4,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (cxt) => Learn()));
-                      },
-                      child: Container(
-                          padding: EdgeInsets.all(30),
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.chrome_reader_mode,
-                                  color: Colors.redAccent),
-                              Text(
-                                "Learn",
-                                style: titleTextSyle,
-                              )
-                            ],
-                          )))),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Text(
-                  "News",
-                  style: title2TextSyle,
-                ),
-              ),
-              Card(
-                elevation: 4,
-                child: Row(
+        backgroundColor: Colors.white.withOpacity(0.9),
+        body: Stack(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 35),
+                width: width,
+                height: height / 3.5,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          "assets/png/appbar2.png",
+                        ),
+                        fit: BoxFit.fill)),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.start,
                   children: <Widget>[
-                    Image.network(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCwkbNJ_AGRt2y8hLaOE6yIymyNww3MQOvpzkeVoikg7lNtHPU",
-                      fit: BoxFit.fill,
-                      width: 120,
-                      height: 120,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Breaking news, opinion, in-depth stories on politics,vergf fgsdfgsdf sdfg business, society, sports, Cool Japan, culture, arts, entertainment, more.",
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Card(
-                elevation: 4,
-                child: InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: <Widget>[
-                      Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCwkbNJ_AGRt2y8hLaOE6yIymyNww3MQOvpzkeVoikg7lNtHPU",
+                    IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        "assets/png/menu.png",
+                        width: 35,
+                        height: 40,
                         fit: BoxFit.fill,
-                        width: 120,
-                        height: 120,
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Breaking news, opinion, in-depth stories on politics,vergf fgsdfgsdf sdfg business, society, sports, Cool Japan, culture, arts, entertainment, more.",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                    ),
+                    ListTile(
+                      contentPadding: EdgeInsets.only(left: 10),
+                      title: Text(
+                        "Learn Japanese Language",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
-                    ],
+                    )
+                  ],
+                )),
+            Container(
+              child: ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: (height / 3) - 70),
                   ),
-                ),
-              )
-            ]));
+                  // Container(
+                  //   height: 300,
+                  //   child: ListView.builder(
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemBuilder: (cxt, index) => LearnItem(
+                  //       detail: learns[index],
+                  //       onPress: () {},
+                  //     ),
+                  //     itemCount: learns.length,
+                  //   ),
+                  // ),
+                  CarouselSlider(
+                    viewportFraction: 0.8,
+                    enlargeCenterPage: true,
+                    height: 260.0,
+                    items: learns.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return LearnItem(
+                            onPress: () {},
+                            detail: i,
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            News(
+                              icon: Icon(
+                                Icons.language,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {},
+                              text: Text("Language"),
+                            ),
+                            News(
+                              icon: Icon(
+                                Icons.collections_bookmark,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {},
+                              text: Text("Book Mark"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            News(
+                              icon: Icon(
+                                Icons.language,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {},
+                              text: Text("Language"),
+                            ),
+                            News(
+                              icon: Icon(
+                                Icons.fiber_new,
+                                color: Colors.redAccent,
+                              ),
+                              onPressed: () {},
+                              text: Text("News"),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ));
   }
 }
+
+//red #F52928
+
+// RaisedButton(
+//                     onPressed: () async {
+//                       await DbHelper().createTables(await DbHelper.access());
+//                       await Insert().insertGrammar();
+//                       // var grammar = await Query().getGrammars(1);
+//                       // print(grammar.last.grammarForm.title);
+//                       // var dbHelper = DbHelper();
+//                       // await dbHelper.createBaseTables();
+//                       // await SQLConverter().jsonToSQL();
+//                       // await dbHelper.saveDbToExternalDir();
+//                     },
+//                     child: Text("Insert DATA"),
+//                   )

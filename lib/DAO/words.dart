@@ -2,13 +2,17 @@ import 'package:flutter/cupertino.dart';
 
 class Words {
   final int id;
+  final int chId;
+  final int isFav;
   final String romaji;
   final String hiragana;
   final String kanji;
   final String myanmar;
   final String english;
   Words(
-      {@required this.id,
+      {this.id,
+      @required this.chId,
+      @required this.isFav,
       @required this.english,
       @required this.hiragana,
       @required this.kanji,
@@ -17,9 +21,11 @@ class Words {
 
   Words.fromMap(Map<String, dynamic> map)
       : romaji = map['romaji'],
-        id = map['chapter_id'] as int,
+        id = map['id'] as int,
+        chId = map['chId'] as int,
+        isFav = map['isFav'] as int,
         kanji = map['kanji'],
-        myanmar = map['mynamar'],
-        english = map['eng'],
-        hiragana = map['hirakana'];
+        myanmar = map['myanmar'],
+        english = map['english'],
+        hiragana = map['hiragana'];
 }
