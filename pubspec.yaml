@@ -17,6 +17,9 @@ dependencies:
   flutter_icons: ^1.0.0+1
   flutter_svg: ^0.17.3+1
   carousel_slider: ^1.4.1
+  cloud_firestore: ^0.13.5
+  flutter_speed_dial: ^1.2.5
+
 
 dev_dependencies:
   flutter_test:

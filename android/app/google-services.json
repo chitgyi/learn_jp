@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "144349548294",
+    "firebase_url": "https://learnjpmm.firebaseio.com",
+    "project_id": "learnjpmm",
+    "storage_bucket": "learnjpmm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144349548294:android:7ca307ece7f2b71e3d9887",
+        "android_client_info": {
+          "package_name": "com.learnjp.cya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144349548294-ilbgro9bhb9j0lah87gmamrdk65ufqs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0Ts2jM8v0em6Iphho28VnIBPSniQRScE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144349548294-ilbgro9bhb9j0lah87gmamrdk65ufqs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

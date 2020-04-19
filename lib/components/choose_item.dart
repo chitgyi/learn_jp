@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:learn_jp/DAO/exercise.dart';
 
 class CustomRadio extends StatefulWidget {
-  final Map<String, dynamic> questions;
-  CustomRadio(this.questions);
+  final Ex ex;
+  final int index, total;
+  CustomRadio(this.ex, {this.total, this.index});
   @override
   createState() {
     return CustomRadioState();
@@ -10,22 +12,23 @@ class CustomRadio extends StatefulWidget {
 }
 
 class CustomRadioState extends State<CustomRadio> {
-  List<RadioModel> sampleData;
+  List<RadioModel> sampleData = [];
+  String buttonText = "Answer Now";
+  bool isRight = false;
+  final buttons = ["A", "B", "C", "D"];
   final style =
       TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold);
 
   @override
   void initState() {
     super.initState();
-    var q = widget.questions['choose'] as List;
-    sampleData = q
-        .map((f) => RadioModel(
-            isSelected: false, buttonText: f.keys.first, text: f[f.keys.first]))
-        .toList();
+
+    for (int i = 0; i < widget.ex.ans.length; i++) {
+      sampleData.add(RadioModel(
+          buttonText: buttons[i], isSelected: false, text: widget.ex.ans[i]));
+    }
   }
 
-  String buttonText = "Answer Now";
-  bool isRight = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,29 +51,29 @@ class CustomRadioState extends State<CustomRadio> {
             Padding(
               padding: EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Text(
-                "1.${widget?.questions['title']}",
+                "1.${widget.ex.text}",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.left,
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(10),
-                itemCount: sampleData.length,
-                itemBuilder: (BuildContext context, int index) {
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+              children: sampleData.map(
+                (f) {
                   return InkWell(
                     onTap: () {
                       setState(() {
                         sampleData
                             .forEach((element) => element.isSelected = false);
-                        sampleData[index].isSelected = true;
+                        f.isSelected = true;
                       });
                     },
-                    child: RadioItem(sampleData[index]),
+                    child: RadioItem(f),
                   );
                 },
-              ),
-            ),
+              ).toList(),
+            )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(
@@ -86,14 +89,16 @@ class CustomRadioState extends State<CustomRadio> {
                     child: Row(
                       children: <Widget>[
                         Spacer(),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Text(
                           buttonText,
                           style: style,
                         ),
                         Spacer(),
                         Text(
-                          "1/26",
+                          "${widget.index}/${widget.total}",
                           style: style,
                         )
                       ],
@@ -113,7 +118,7 @@ class CustomRadioState extends State<CustomRadio> {
     if (rm.isEmpty) {
       print("Select");
     } else {
-      if (rm.first.buttonText == widget.questions['answer']) {
+      if (rm.first.text == widget.ex.correct) {
         setState(() {
           buttonText = "Right Answer!";
           isRight = true;

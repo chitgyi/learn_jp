@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:learn_jp/DAO/accessvoca.dart';
 import 'package:learn_jp/DAO/words.dart';
 import 'package:learn_jp/utils/Insert.dart';
 
 class VocaDetailItem extends StatefulWidget {
   final Words words;
   final int index;
+  final AccessVoca accessVoca;
 
-  VocaDetailItem(this.words, this.index);
+  VocaDetailItem({this.words, this.index, this.accessVoca});
 
   @override
   _VocaDetailItemState createState() => _VocaDetailItemState();
@@ -36,11 +38,8 @@ class _VocaDetailItemState extends State<VocaDetailItem> {
       child: ListBody(
         children: <Widget>[
           ListTile(
-            title: Text(
-              "${widget.index + 1}.${widget.words.hiragana}",
-            ),
-            subtitle: Text(
-                "${widget.words.romaji}\n${widget.words.kanji}\n${widget.words.myanmar}"),
+            title: Text(_showText()),
+            subtitle: Text(_showSubText()),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -62,5 +61,25 @@ class _VocaDetailItemState extends State<VocaDetailItem> {
         ],
       ),
     );
+  }
+
+  String _showText() {
+    if (!widget.accessVoca.showHiragna &&
+        !widget.accessVoca.showRomaji &&
+        !widget.accessVoca.showKanji &&
+        !widget.accessVoca.showMyanmar) {
+      return '${widget.index + 1}. ${widget.words.hiragana}';
+    }
+    return widget.accessVoca.showHiragna
+        ? "${widget.index + 1}. ${widget.words.hiragana}"
+        : "";
+  }
+
+  String _showSubText() {
+    return (widget.accessVoca.showRomaji ? widget.words.romaji : "") +
+        "\n" +
+        (widget.accessVoca.showKanji ? widget.words.kanji : "") +
+        "\n" +
+        (widget.accessVoca.showMyanmar ? widget.words.myanmar : "");
   }
 }

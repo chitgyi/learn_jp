@@ -1,4 +1,4 @@
-package com.example.learn_jp
+package com.learnjp.cya
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

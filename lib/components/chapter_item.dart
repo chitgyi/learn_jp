@@ -60,7 +60,7 @@ class ChapterItem extends StatelessWidget {
                       ),
                       onPressed: () {
                         Navigator.of(context)
-                            .push(PageAnimation(child: Exercise()));
+                            .push(PageAnimation(child: Exercise(chapter.id)));
                       },
                     ),
                   ],

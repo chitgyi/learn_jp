@@ -78,7 +78,7 @@ class App extends StatelessWidget {
                   CarouselSlider(
                     viewportFraction: 0.8,
                     enlargeCenterPage: true,
-                    height: 260.0,
+                    height: 300.0,
                     items: learns.map((i) {
                       return Builder(
                         builder: (BuildContext context) {
@@ -144,19 +144,3 @@ class App extends StatelessWidget {
         ));
   }
 }
-
-//red #F52928
-
-// RaisedButton(
-//                     onPressed: () async {
-//                       await DbHelper().createTables(await DbHelper.access());
-//                       await Insert().insertGrammar();
-//                       // var grammar = await Query().getGrammars(1);
-//                       // print(grammar.last.grammarForm.title);
-//                       // var dbHelper = DbHelper();
-//                       // await dbHelper.createBaseTables();
-//                       // await SQLConverter().jsonToSQL();
-//                       // await dbHelper.saveDbToExternalDir();
-//                     },
-//                     child: Text("Insert DATA"),
-//                   )

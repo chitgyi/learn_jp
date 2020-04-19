@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_jp/DAO/accessvoca.dart';
 import 'package:learn_jp/DAO/words.dart';
 import 'package:learn_jp/MVP/VocaSearchMVP.dart';
 import 'package:learn_jp/components/voca_deatail_item.dart';
@@ -60,7 +61,7 @@ class _VocaSearchState extends State<VocaSearch> implements VocaSearchView {
     } else {
       return ListView.builder(
           itemCount: words.length,
-          itemBuilder: (cxt, index) => VocaDetailItem(words[index], index));
+          itemBuilder: (cxt, index) => VocaDetailItem(words:words[index], index:index, accessVoca: AccessVoca(),));
     }
   }
 
