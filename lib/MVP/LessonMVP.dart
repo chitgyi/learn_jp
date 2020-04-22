@@ -6,7 +6,7 @@ class LessonPresenter {
   LessonPresenter(this.lessonView);
 
   void getWords(int id) {
-    Query()
+    Queries()
         .getVocabulary(id)
         .then((c) => lessonView.words(c))
         .catchError((err) => lessonView.error(err.toString()));

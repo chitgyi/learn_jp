@@ -5,6 +5,7 @@ import 'package:learn_jp/components/news.dart';
 import 'package:learn_jp/screens/Kanji.dart';
 import 'package:learn_jp/screens/Learn.dart';
 import 'package:learn_jp/screens/Listening.dart';
+import 'package:learn_jp/utils/DbHelper.dart';
 
 class App extends StatelessWidget {
   final learns = [
@@ -101,7 +102,9 @@ class App extends StatelessWidget {
                                 Icons.language,
                                 color: Colors.redAccent,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                // DbHelper().createTables(await DbHelper.access());
+                              },
                               text: Text("Language"),
                             ),
                             News(

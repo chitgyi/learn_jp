@@ -53,17 +53,15 @@ class DbHelper {
   createTables(Database db) async {
     await deleteBaseTables();
     await db.execute(
-        "CREATE TABLE 'forms'('formId' INTEGER, chId INTEGER, isFav integer, 'title' TEXT, hiragana TEXT, romaji TEXT, mm TEXT)");
-    await db.execute(
-        "CREATE TABLE 'examples'('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'formId' INTEGER, hiraganaEg TEXT, romajiEg TEXT, mmEg TEXT)");
-    print("Created forms and examples tables");
+        "CREATE TABLE IF NOT EXISTS'grammars'('id' TEXT, chapter integer,note TEXT, isFav integer, title TEXT, hiragana TEXT, myanmar TEXT, examples TEXT)");
+    print("Created grammars");
   }
 
   deleteBaseTables() async {
     try {
       var dbClient = await DbHelper.access();
-      await dbClient.execute("DROP TABLE IF EXISTS forms");
-      await dbClient.execute("DROP TABLE IF EXISTS examples");
+      await dbClient.execute("DROP TABLE IF EXISTS grammars");
+      //await dbClient.execute("DROP TABLE IF EXISTS examples");
       print("Deleted..");
     } catch (e) {
       print("DROP ERROR: [$e]");

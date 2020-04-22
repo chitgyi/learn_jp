@@ -14,7 +14,7 @@ class _VocaFavoriteListState extends State<VocaFavoriteList> {
   @override
   void initState() {
     super.initState();
-    Query().getFavVoca().then((word) {
+    Queries().getFavVoca().then((word) {
       setState(() {
         words = word;
       });

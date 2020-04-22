@@ -92,28 +92,33 @@ class _BlankItemState extends State<BlankItem> {
                 ),
               ),
             ),
-            
           ],
         ),
       ),
     );
   }
 
-  void showAns(){
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void showAns() {
     _controller.text = widget.correct;
-     setState(() {
-        isRight = true;
-        buttonText = "Correct Answer!";
-      });
+    setState(() {
+      isRight = true;
+      buttonText = "Correct Answer!";
+    });
   }
 
   void check() {
-    if(widget.correct == _controller.text){
+    if (widget.correct == _controller.text) {
       setState(() {
         isRight = true;
         buttonText = "Right Answer!";
       });
-    }else{
+    } else {
       setState(() {
         isRight = false;
         buttonText = "Wrong Answer!";

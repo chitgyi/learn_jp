@@ -6,7 +6,7 @@ class VocaPresenter {
   VocaPresenter(this.vocaView);
 
   void getChapters() {
-    Query()
+    Queries()
         .getChapters()
         .then((c) => vocaView.chapters(c))
         .catchError((err) => vocaView.error(err.toString()));

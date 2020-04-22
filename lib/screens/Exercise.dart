@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/exercise.dart';
+import 'package:learn_jp/components/arrange_item.dart';
 import 'package:learn_jp/components/blank_item.dart';
 import 'package:learn_jp/components/choose_item.dart';
 
@@ -104,7 +105,11 @@ class Exercise extends StatelessWidget {
             // return Text(
             //     "${ex[index].text}\n${ex[index].ans[0]}\n${ex[index].ans[1]}\n${ex[index].ans[2]}\n ${ex[index].correct}");
           } else if (ex[index].type == "arrange") {
-            return Container();
+            return ArrangeItem(
+              ex: ex[index],
+              index: index + 1,
+              total: ex.length,
+            );
           } else {
             return Center(
               child: Text("Empty"),

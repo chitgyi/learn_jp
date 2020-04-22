@@ -3,29 +3,19 @@ import 'package:learn_jp/DAO/kotoba.dart';
 import 'package:learn_jp/utils/DbHelper.dart';
 
 class Insert {
-  insertGrammar() async {
+  Future insertGrammar(List<GrammarDAO> grammars) async {
     try {
       final dbClient = await DbHelper.access();
-      grammarList.forEach((grammarDAO) async {
-        await dbClient.insert('forms', {
-          'formId': grammarDAO.grammarForm.id,
-          'chId': grammarDAO.grammarForm.chapterId,
-          'isFav': grammarDAO.grammarForm.isFav,
-          'title': grammarDAO.grammarForm.title,
-          'hiragana': grammarDAO.grammarForm.hiragana,
-          'romaji': grammarDAO.grammarForm.romaji,
-          'mm': grammarDAO.grammarForm.myanmar
-        });
-        grammarDAO.grammarEg.forEach((grammarEg) async {
-          await dbClient.insert('examples', {
-            'formId': grammarDAO.grammarForm.id,
-            'hiraganaEg': grammarEg.hiragana,
-            'romajiEg': grammarEg.romaji,
-            'mmEg': grammarEg.myanmar
-          });
-        });
+      grammars.forEach((grammarDAO) async {
+        var result = await dbClient
+            .query("grammars", where: "id = ?", whereArgs: [grammarDAO.id]);
+        if (result.length > 0) {
+          await dbClient.update("grammars", grammarDAO.toMap(),
+              where: "id = ?", whereArgs: [grammarDAO.id]);
+        } else {
+          await dbClient.insert("grammars", grammarDAO.toMap());
+        }
       });
-      print("saved:");
     } catch (e) {
       print("Failed to insert for grammar: [$e]");
     }
@@ -52,21 +42,20 @@ class Insert {
     }
   }
 
-  updateFav({bool isFav, int id}) async {
-    var dbClient = await DbHelper.access();
-    print("Before Updated ${!isFav}");
-    var data = isFav ? 1 : 0;
-    await dbClient
-        .rawUpdate("UPDATE forms SET isFav = $data WHERE formId = $id");
-    var after =
-        await dbClient.rawQuery("select * from forms where formId = $id");
-    print("Updated $after & $id");
-  }
-
-  void updateKotobaFav(bool isFav, int id) async{
-    int data = isFav?1:0;
+  void updateKotobaFav(bool isFav, int id) async {
+    int data = isFav ? 1 : 0;
     var dbClient = await DbHelper.access();
     await dbClient.rawUpdate("update kotoba set isFav = $data where id = $id");
     print("$isFav ==> $id");
+  }
+
+  updateFav(GrammarDAO grammarDAO) async {
+    try {
+      var dbClient = await DbHelper.access();
+      await dbClient.update("grammars", {"isFav": grammarDAO.isFav},
+          where: "id = ?", whereArgs: [grammarDAO.id]);
+    } catch (e) {
+      print(e);
+    }
   }
 }

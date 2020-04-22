@@ -31,6 +31,7 @@ class LearnItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Material(
+                  elevation: 3,
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Colors.redAccent,
                   child: InkWell(

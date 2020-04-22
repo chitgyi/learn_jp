@@ -18,9 +18,9 @@ class _GrammarItemState extends State<GrammarItem> {
   @override
   void initState() {
     super.initState();
-    
+    print(widget.grammarDAO.isFav);
     setState(() {
-      isFav = widget.grammarDAO.grammarForm.isFav != 0;
+      isFav = widget.grammarDAO.isFav != 0;
     });
   }
 
@@ -28,8 +28,9 @@ class _GrammarItemState extends State<GrammarItem> {
     setState(() {
       isFav = !isFav;
     });
-    await Insert()
-        .updateFav(isFav: isFav, id: widget.grammarDAO.grammarForm.id);
+    widget.grammarDAO.isFav = isFav ? 1 : 0;
+    await Insert().updateFav(widget.grammarDAO);
+    print(widget.grammarDAO.isFav);
     //  grammarList.forEach((f) => db.insertGrammar(f));
   }
 
@@ -40,17 +41,17 @@ class _GrammarItemState extends State<GrammarItem> {
         children: <Widget>[
           ListTile(
               title: Text(
-                widget.grammarDAO.grammarForm.title,
+                widget.grammarDAO.title,
               ),
               subtitle: Text(
-                  "${widget.grammarDAO.grammarForm.hiragana}\n${widget.grammarDAO.grammarForm.romaji}\n${widget.grammarDAO.grammarForm.myanmar}")),
+                  "${widget.grammarDAO.hiragana}\n${widget.grammarDAO.myanmar}")),
           ListTile(
             title: Text(
               "Examples",
             ),
             subtitle: Column(
-              children: widget.grammarDAO.grammarEg
-                  .map((f) => Text("${f.hiragana}\n${f.romaji}\n${f.myanmar}"))
+              children: widget.grammarDAO.eg
+                  .map((f) => Text("${f['hiragana']}\n${f['myanmar']}"))
                   .toList(),
               crossAxisAlignment: CrossAxisAlignment.start,
             ),

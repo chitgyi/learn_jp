@@ -9,7 +9,7 @@ class VocaSearchPresenter {
 
   search() async {
     if (_controller.text.isNotEmpty) {
-      Query()
+      Queries()
           .search(_controller.text)
           .then((words) => _vocaSearchView.result(words));
     } else {

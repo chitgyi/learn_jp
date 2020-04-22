@@ -75,8 +75,9 @@ class CustomRadioState extends State<CustomRadio> {
               ).toList(),
             )),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Material(
+                elevation: 4,
                 color: isRight ? Colors.green : Colors.redAccent,
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
