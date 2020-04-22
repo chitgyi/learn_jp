@@ -9,7 +9,6 @@ import 'package:learn_jp/components/chapter_item.dart';
 import 'package:learn_jp/screens/FavGrammars.dart';
 import 'package:learn_jp/screens/VocaFavoriteList.dart';
 import 'package:learn_jp/utils/Insert.dart';
-import 'package:learn_jp/utils/Query.dart';
 
 class Learn extends StatefulWidget {
   const Learn({Key key}) : super(key: key);

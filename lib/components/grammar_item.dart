@@ -18,10 +18,10 @@ class _GrammarItemState extends State<GrammarItem> {
   @override
   void initState() {
     super.initState();
-    print(widget.grammarDAO.isFav);
     setState(() {
-      isFav = widget.grammarDAO.isFav != 0;
+      isFav = widget.grammarDAO.isFav == 1;
     });
+    print(widget.grammarDAO.isFav);
   }
 
   setFav() async {

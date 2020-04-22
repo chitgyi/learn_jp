@@ -102,8 +102,8 @@ class App extends StatelessWidget {
                                 Icons.language,
                                 color: Colors.redAccent,
                               ),
-                              onPressed: () {
-                                // DbHelper().createTables(await DbHelper.access());
+                              onPressed: () async{
+                                 DbHelper().createTables(await DbHelper.access());
                               },
                               text: Text("Language"),
                             ),

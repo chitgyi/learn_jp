@@ -53,7 +53,7 @@ class DbHelper {
   createTables(Database db) async {
     await deleteBaseTables();
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS'grammars'('id' TEXT, chapter integer,note TEXT, isFav integer, title TEXT, hiragana TEXT, myanmar TEXT, examples TEXT)");
+        "CREATE TABLE IF NOT EXISTS'grammars'('id' TEXT, chapter integer,note TEXT, isFav integer default 0, title TEXT, hiragana TEXT, myanmar TEXT, examples TEXT)");
     print("Created grammars");
   }
 
