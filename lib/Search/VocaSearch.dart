@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/accessvoca.dart';
-import 'package:learn_jp/DAO/words.dart';
 import 'package:learn_jp/MVP/VocaSearchMVP.dart';
 import 'package:learn_jp/components/voca_deatail_item.dart';
+import 'package:learn_jp/db/MoorHelper.dart';
+import 'package:provider/provider.dart';
 
 class VocaSearch extends StatefulWidget {
   @override
@@ -10,14 +11,15 @@ class VocaSearch extends StatefulWidget {
 }
 
 class _VocaSearchState extends State<VocaSearch> implements VocaSearchView {
-  List<Words> words;
+  List<Kotoba> kotobas;
   final _searchController = TextEditingController();
   VocaSearchPresenter presenter;
 
   @override
   void initState() {
     super.initState();
-    presenter = VocaSearchPresenter(this, _searchController);
+    presenter = VocaSearchPresenter(
+        this, _searchController, Provider.of<AppDb>(context));
   }
 
   @override
@@ -41,27 +43,31 @@ class _VocaSearchState extends State<VocaSearch> implements VocaSearchView {
   }
 
   @override
-  void result(List<Words> words) {
+  void result(List<Kotoba> kotobas) {
     setState(() {
-      this.words = words;
+      this.kotobas = kotobas;
     });
   }
 
   _showResult() {
-    if (words == null) {
+    if (kotobas == null) {
       return Container(
         child: Center(
           child: Text("Search..."),
         ),
       );
-    } else if (words.length == 0) {
+    } else if (kotobas.length == 0) {
       return Center(
         child: Text("Not Found!"),
       );
     } else {
       return ListView.builder(
-          itemCount: words.length,
-          itemBuilder: (cxt, index) => VocaDetailItem(words:words[index], index:index, accessVoca: AccessVoca(),));
+          itemCount: kotobas.length,
+          itemBuilder: (cxt, index) => VocaDetailItem(
+                kotoba: kotobas[index],
+                index: index,
+                accessVoca: AccessVoca(),
+              ));
     }
   }
 

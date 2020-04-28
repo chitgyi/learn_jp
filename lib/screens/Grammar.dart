@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/grammar.dart';
 import 'package:learn_jp/components/grammar_item.dart';
-import 'package:learn_jp/utils/Query.dart';
 
 class Grammar extends StatelessWidget {
   final int chapterId;
@@ -19,14 +19,17 @@ class Grammar extends StatelessWidget {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              "Chapter ${chapterId + 1}",
+              "Chapter $chapterId",
               style: TextStyle(color: Colors.white, fontSize: 10),
             ),
             contentPadding: EdgeInsets.zero,
           ),
         ),
         body: FutureBuilder(
-          future: Queries().getGrammar(chapterId + 1),
+          future: Firestore.instance
+              .collection("grammars")
+              .where("chapter", isEqualTo: chapterId)
+              .getDocuments(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -35,39 +38,35 @@ class Grammar extends StatelessWidget {
                 );
                 break;
               case ConnectionState.done:
-                var grammars = snapshot.data as List;
-                if (grammars.length < 1) {
+                if (snapshot.hasData) {
+                  var docs = snapshot.data as QuerySnapshot;
+                  var grammars = docs.documents
+                      .map((f) => GrammarData.fromSnapshot(f))
+                      .toList();
+                  if (grammars.length > 0) {
+                    return _showGrammar(grammars);
+                  } else {
+                    return Center(child: Text("Empty"));
+                  }
+                } else {
                   return Center(
-                    child: Text("Grammar is Empty"),
+                    child: Text("Empty"),
                   );
                 }
-                return _showGrammar(grammars);
                 break;
-              case ConnectionState.none:
-                return FutureBuilder(
-                  future: Queries().getGrammar(chapterId),
-                  builder: (cxt, snap) {
-                    var grammar = snap.data as List;
-                    if (grammar.length < 1) {
-                      return _showGrammar(grammar);
-                    }
-                    return Center(
-                      child: Text("Grammar is Empty"),
-                    );
-                  },
-                );
-                break;
-
               default:
                 return Center(
-                  child: Text("Grammar is Empty~"),
+                  child: IconButton(
+                    icon: Icon(Icons.refresh),
+                    onPressed: () {},
+                  ),
                 );
             }
           },
         ));
   }
 
-  Widget _showGrammar(List<GrammarDAO> grammars) {
+  Widget _showGrammar(List<GrammarData> grammars) {
     return ListView.builder(
       itemCount: grammars.length,
       itemBuilder: (cxt, index) => GrammarItem(grammars[index]),

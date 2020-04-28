@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:learn_jp/DAO/accessvoca.dart';
-import 'package:learn_jp/DAO/words.dart';
-import 'package:learn_jp/utils/Insert.dart';
+import 'package:learn_jp/db/MoorHelper.dart';
 
 class VocaDetailItem extends StatefulWidget {
-  final Words words;
+  final Kotoba kotoba;
   final int index;
   final AccessVoca accessVoca;
 
-  VocaDetailItem({this.words, this.index, this.accessVoca});
+  VocaDetailItem({this.kotoba, this.index, this.accessVoca});
 
   @override
   _VocaDetailItemState createState() => _VocaDetailItemState();
@@ -19,7 +18,7 @@ class _VocaDetailItemState extends State<VocaDetailItem> {
   @override
   void initState() {
     setState(() {
-      isFav = widget.words.isFav != 0;
+      isFav = widget.kotoba.isFav != 0;
     });
     super.initState();
   }
@@ -28,7 +27,7 @@ class _VocaDetailItemState extends State<VocaDetailItem> {
     setState(() {
       isFav = !isFav;
     });
-    Insert().updateKotobaFav(isFav, widget.words.id);
+    
   }
 
   @override
@@ -68,18 +67,18 @@ class _VocaDetailItemState extends State<VocaDetailItem> {
         !widget.accessVoca.showRomaji &&
         !widget.accessVoca.showKanji &&
         !widget.accessVoca.showMyanmar) {
-      return '${widget.index + 1}. ${widget.words.hiragana}';
+      return '${widget.index + 1}. ${widget.kotoba.hiragana}';
     }
     return widget.accessVoca.showHiragna
-        ? "${widget.index + 1}. ${widget.words.hiragana}"
+        ? "${widget.index + 1}. ${widget.kotoba.hiragana}"
         : "";
   }
 
   String _showSubText() {
-    return (widget.accessVoca.showRomaji ? widget.words.romaji : "") +
+    return (widget.accessVoca.showRomaji ? widget.kotoba.romaji : "") +
         "\n" +
-        (widget.accessVoca.showKanji ? widget.words.kanji : "") +
+        (widget.accessVoca.showKanji ? widget.kotoba.kanji : "") +
         "\n" +
-        (widget.accessVoca.showMyanmar ? widget.words.myanmar : "");
+        (widget.accessVoca.showMyanmar ? widget.kotoba.myanmar : "");
   }
 }

@@ -1,0 +1,5 @@
+CREATE TABLE chapter(id INTEGER PRIMARY KEY AUTOINCREMENT, chId INTEGER, title TEXT) AS Chapter;
+
+CREATE TABLE kotoba(id INTEGER PRIMARY KEY AUTOINCREMENT, chId INTEGER,isFav integer default 0, myanmar TEXT, romaji TEXT, hiragana TEXT, english TEXT, kanji TEXT) As Kotoba;
+
+searchKotoba: select * from kotoba where (romaji || myanmar || hiragana) like '%?%' limit 25;

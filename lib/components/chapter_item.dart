@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learn_jp/DAO/chapter.dart';
 import 'package:learn_jp/animation/PageAnimation.dart';
+import 'package:learn_jp/db/MoorHelper.dart';
 import 'package:learn_jp/screens/Exercise.dart';
 import 'package:learn_jp/screens/Grammar.dart';
 import 'package:learn_jp/screens/VocaDetails.dart';
@@ -19,9 +19,9 @@ class ChapterItem extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  "Chapter ${chapter.id + 1}",
+                  "Chapter ${chapter.id}",
                 ),
-                subtitle: Text(chapter.titile),
+                subtitle: Text(chapter.title),
               ),
               ListTile(
                 title: Wrap(

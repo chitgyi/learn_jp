@@ -1,9 +1,12 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_jp/utils/DbHelper.dart';
-import 'package:learn_jp/wrapper.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_jp/db/MoorHelper.dart';
+import 'package:learn_jp/playerbloc/player_bloc.dart';
+import 'package:learn_jp/screens/App.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -12,33 +15,30 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final db = AppDb();
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<bool>.value(
-      value: isNewUser(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            primaryColor: Color.fromRGBO(245, 41, 40, 1),
-            accentColor: Colors.redAccent),
-        home: Wrapper(),
+    Firestore.instance.settings(persistenceEnabled: true);
+    return MultiProvider(
+      providers: [
+        Provider<AppDb>(
+          create: (_) => db,
+        ),
+        Provider<AudioPlayer>(
+          create: (_) => AudioPlayer(mode: PlayerMode.MEDIA_PLAYER),
+        )
+      ],
+      child: BlocProvider<PlayerBolc>(
+        create: (_) => PlayerBolc(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              primaryColor: Color.fromRGBO(245, 41, 40, 1),
+              accentColor: Colors.redAccent),
+          home: App(),
+        ),
       ),
     );
-  }
-
-  Stream<bool> isNewUser() async* {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool newUser = preferences.getBool("newUser") ?? true;
-
-    if (newUser) {
-      yield true;
-      await DbHelper().initializeDb();
-      print("Created Db!");
-      preferences.setBool("newUser", false);
-    }
-    print("Db exists!");
-    yield false;
   }
 }

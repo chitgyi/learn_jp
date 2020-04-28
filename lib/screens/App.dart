@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_jp/components/learn_item.dart';
 import 'package:learn_jp/components/news.dart';
 import 'package:learn_jp/screens/Kanji.dart';
 import 'package:learn_jp/screens/Learn.dart';
 import 'package:learn_jp/screens/Listening.dart';
-import 'package:learn_jp/utils/DbHelper.dart';
 
 class App extends StatelessWidget {
   final learns = [
@@ -17,10 +17,12 @@ class App extends StatelessWidget {
     {"src": "assets/onbarad2.png", "route": Kanji(), "title": "Kanji"},
     {"src": "assets/listening.png", "route": Listening(), "title": "Listening"}
   ];
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         backgroundColor: Colors.white.withOpacity(0.9),
         body: Stack(
@@ -65,17 +67,6 @@ class App extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: (height / 3) - 70),
                   ),
-                  // Container(
-                  //   height: 300,
-                  //   child: ListView.builder(
-                  //     scrollDirection: Axis.horizontal,
-                  //     itemBuilder: (cxt, index) => LearnItem(
-                  //       detail: learns[index],
-                  //       onPress: () {},
-                  //     ),
-                  //     itemCount: learns.length,
-                  //   ),
-                  // ),
                   CarouselSlider(
                     viewportFraction: 0.8,
                     enlargeCenterPage: true,
@@ -102,9 +93,7 @@ class App extends StatelessWidget {
                                 Icons.language,
                                 color: Colors.redAccent,
                               ),
-                              onPressed: () async{
-                                 DbHelper().createTables(await DbHelper.access());
-                              },
+                              onPressed: () async {},
                               text: Text("Language"),
                             ),
                             News(

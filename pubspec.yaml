@@ -9,24 +9,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: ^1.3.0
   path_provider: ^1.6.5
   cupertino_icons: ^0.1.2
-  shared_preferences: ^0.5.6+3
   provider: ^4.0.4
   flutter_icons: ^1.0.0+1
-  flutter_svg: ^0.17.3+1
   carousel_slider: ^1.4.1
   cloud_firestore: ^0.13.5
   flutter_speed_dial: ^1.2.5
-
+  flutter_bloc: ^4.0.0
+  equatable: ^1.1.1
+  moor: ^2.4.2
+  moor_ffi: ^0.4.0
+  audioplayers: ^0.15.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  moor_generator: ^2.4.0
+  build_runner:
+
 flutter:
   uses-material-design: true
-
+  
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/data.json
@@ -36,6 +40,8 @@ flutter:
    - assets/onbarad1.png
    - assets/onbarad2.png
    - assets/png/appbar2.png
+   - assets/audio_0.lrc
+   - assets/audio_0.mp3
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
